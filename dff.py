@@ -1,3 +1,4 @@
+import os
 import hashlib
 
 def get_file_sha1(file_path):
@@ -10,6 +11,13 @@ def get_file_sha1(file_path):
     except FileNotFoundError:
         return f"File {file_path} not found."
 
+def traverse_directory(root_dir):
+    for root, _, files in os.walk(root_dir):
+        for file in files:
+            file_path = os.path.join(root, file)
+            file_sha1 = get_file_sha1(file_path)
+            print(f"{file_path} -> {file_sha1}")
+
 # Example usage:
-file_path = "/mnt/e/badanie.vhd"
-print(get_file_sha1(file_path))
+root_directory = "/mnt/e/Brabork"
+traverse_directory(root_directory)
